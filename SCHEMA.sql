@@ -1,16 +1,10 @@
--- =========================================================================
--- SYSTEM: Football Ticket Booking System Database Setup
--- DESCRIPTION: Complete DDL for Table Creation & Data Insertion
--- =========================================================================
-
--- DROP TABLES IF THEY ALREADY EXIST TO PREVENT CONFLICTS
+-- Football Ticket Booking System Database Schema
+-- Drop existing tables
 DROP TABLE IF EXISTS Bookings;
 DROP TABLE IF EXISTS Matches;
 DROP TABLE IF EXISTS Users;
 
--- =========================================================================
--- 1. CREATE USERS TABLE
--- =========================================================================
+-- Create Users table
 CREATE TABLE Users (
     user_id INT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -20,9 +14,7 @@ CREATE TABLE Users (
     CONSTRAINT chk_user_role CHECK (role IN ('Football Fan', 'Ticket Manager'))
 );
 
--- =========================================================================
--- 2. CREATE MATCHES TABLE
--- =========================================================================
+-- Create Matches table
 CREATE TABLE Matches (
     match_id INT PRIMARY KEY,
     fixture VARCHAR(200) NOT NULL,
@@ -33,9 +25,7 @@ CREATE TABLE Matches (
     CONSTRAINT chk_match_status CHECK (match_status IN ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
 );
 
--- =========================================================================
--- 3. CREATE BOOKINGS TABLE
--- =========================================================================
+-- Create Bookings table
 CREATE TABLE Bookings (
     booking_id INT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -49,18 +39,14 @@ CREATE TABLE Bookings (
     CONSTRAINT chk_payment_status CHECK (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded') OR payment_status IS NULL)
 );
 
--- =========================================================================
--- DATA SEEDING: INSERT SAMPLE DATA INTO USERS
--- =========================================================================
+-- Insert sample data into Users
 INSERT INTO Users (user_id, full_name, email, role, phone_number) VALUES
 (1, 'Tanvir Rahman', 'tanvir@mail.com', 'Football Fan', '+8801711111111'),
 (2, 'Asif Haque', 'asif@mail.com', 'Football Fan', '+8801722222222'),
 (3, 'Sajjad Rahman', 'sajjad@mail.com', 'Ticket Manager', '+8801733333333'),
 (4, 'Jannat Ara', 'jannat@mail.com', 'Football Fan', NULL);
 
--- =========================================================================
--- DATA SEEDING: INSERT SAMPLE DATA INTO MATCHES
--- =========================================================================
+-- Insert sample data into Matches
 INSERT INTO Matches (match_id, fixture, tournament_category, base_ticket_price, match_status) VALUES
 (101, 'Real Madrid vs Barcelona', 'Champions League', 150.00, 'Available'),
 (102, 'Man City vs Liverpool', 'Premier League', 120.00, 'Selling Fast'),
@@ -68,9 +54,7 @@ INSERT INTO Matches (match_id, fixture, tournament_category, base_ticket_price, 
 (104, 'AC Milan vs Inter Milan', 'Serie A', 90.00, 'Sold Out'),
 (105, 'Juventus vs Roma', 'Serie A', 80.00, 'Available');
 
--- =========================================================================
--- DATA SEEDING: INSERT SAMPLE DATA INTO BOOKINGS
--- =========================================================================
+-- Insert sample data into Bookings
 INSERT INTO Bookings (booking_id, user_id, match_id, seat_number, payment_status, total_cost) VALUES
 (501, 1, 101, 'A-12', 'Confirmed', 150.00),
 (502, 1, 102, 'B-04', 'Confirmed', 120.00),
